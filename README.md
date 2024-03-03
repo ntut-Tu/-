@@ -19,7 +19,7 @@ g++	-o	all	ellipse.o triangle.o circular_sector.o sort.o main.o	-std=c++11	-lstd
 
 * 用window執行時(git bash)
 * 需安裝:mingw-get install msys-make
-* 用mingw32-make取代make
+* git bash用mingw32-make取代make
 * 執行: ./main.exe (ubuntu 打 ./main 就好)
 * mingw32-make clean 來刪除.o
 
