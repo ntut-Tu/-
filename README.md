@@ -2,17 +2,12 @@
 
 ## 正常的編譯指令:
 
-g++	-std=c++11	-c	ellipse.cpp	-o	ellipse.o
-
-g++	-std=c++11	-c	triangle.cpp	-o	triangle.o
-
-g++	-std=c++11	-c	circular_sector.cpp	-o	circular_sector.o
-
-g++	-std=c++11	-c	sort.cpp	-o	sort.o
-
-g++	-std=c++11	-c	main.cpp	-o	main.o
-
-g++	-o	all	ellipse.o triangle.o circular_sector.o sort.o main.o	-std=c++11	-lstdc++
+	g++	-std=c++11	-c	ellipse.cpp	-o	ellipse.o
+	g++	-std=c++11	-c	triangle.cpp	-o	triangle.o
+	g++	-std=c++11	-c	circular_sector.cpp	-o	circular_sector.o
+	g++	-std=c++11	-c	sort.cpp	-o	sort.o
+	g++	-std=c++11	-c	main.cpp	-o	main.o
+	g++	-o	all	ellipse.o triangle.o circular_sector.o sort.o main.o	-std=c++11	-lstdc++
 
 # 使用Makefile編譯教學
 >註: #ifndef 在window上能正常運作，但到ubuntu上後會失效
