@@ -1,6 +1,6 @@
 
 
-##正常的編譯指令:
+## 正常的編譯指令:
 g++	-std=c++11	-c	ellipse.cpp	-o	ellipse.o
 g++	-std=c++11	-c	triangle.cpp	-o	triangle.o
 g++	-std=c++11	-c	circular_sector.cpp	-o	circular_sector.o
@@ -8,7 +8,7 @@ g++	-std=c++11	-c	sort.cpp	-o	sort.o
 g++	-std=c++11	-c	main.cpp	-o	main.o
 g++	-o	all	ellipse.o triangle.o circular_sector.o sort.o main.o	-std=c++11	-lstdc++
 
-#使用Makefile編譯教學
+# 使用Makefile編譯教學
 >註: #ifndef 在window上能正常運作，但到ubuntu上後會失效
 
 * 用window執行時(git bash)
@@ -23,7 +23,7 @@ g++	-o	all	ellipse.o triangle.o circular_sector.o sort.o main.o	-std=c++11	-lstd
 	CXXFLAGS=-std=c++11
 	LDFLAGS=-lstdc++
 
-##輸出的檔案:
+## 輸出的檔案:
 	TARGETS=main
 >*輸出的exe檔名*
 
