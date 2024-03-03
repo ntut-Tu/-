@@ -1,3 +1,5 @@
+
+
 ##正常的編譯指令:
 g++	-std=c++11	-c	ellipse.cpp	-o	ellipse.o
 g++	-std=c++11	-c	triangle.cpp	-o	triangle.o
