@@ -18,7 +18,7 @@ g++	-o	all	ellipse.o triangle.o circular_sector.o sort.o main.o	-std=c++11	-lstd
 * mingw32-make clean 來刪除.o
 
 # Makefile簡介
-##編譯器與函式庫
+## 編譯器與函式庫
 	CXX=g++
 	CXXFLAGS=-std=c++11
 	LDFLAGS=-lstdc++
