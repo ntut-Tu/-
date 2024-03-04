@@ -1,8 +1,8 @@
 
-##Ubuntu filezilla
+## Ubuntu filezilla
 	sudo apt-get install filezilla
  Host:sftp://<TX2_IP>
-##Ubuntu aarch64 安裝
+## Ubuntu aarch64 安裝
 	sudo apt upgrade
  	sudo apt update
   	sudo apt install g++-aarch64-linux-gnu
