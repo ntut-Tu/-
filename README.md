@@ -1,5 +1,11 @@
 
-
+##Ubuntu filezilla
+	sudo apt-get install filezilla
+ Host:sftp://<TX2_IP>
+##Ubuntu aarch64 安裝
+	sudo apt upgrade
+ 	sudo apt update
+  	sudo apt install g++-aarch64-linux-gnu
 ## 正常的編譯指令:
 
 	g++	-std=c++11	-c	ellipse.cpp	-o	ellipse.o
