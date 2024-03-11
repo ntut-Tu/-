@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <iostream>
 #include <cstring>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -100,96 +102,78 @@ int gpio_set_value(unsigned int gpio, int value)
 
 
 int main(int argc,char *argv[]){
-    int input;
-	//if(strcmp(argv[0],"main")==0){
-		std::cout<<"Main\n";
-		if(strcmp(argv[1],"LED1")==0){
-			if(strcmp(argv[2],"ON")==0){
-				std::cout<<"LED1\n";
-				gpio_export(466);
-				gpio_set_dir(466,"out");
-				gpio_set_value(466,1);
-			}else if(strcmp(argv[2],"OFF")==0){
-				gpio_set_value(466,0);
-        		gpio_unexport(466);
-			}
-		}
-		if(strcmp(argv[1],"LED2")==0){
-			if(strcmp(argv[2],"ON")==0){
-				std::cout<<"LED2\n";
-				gpio_export(397);
-				gpio_set_dir(397,"out");
-				gpio_set_value(397,1);
-			}else if(strcmp(argv[2],"OFF")==0){
-				gpio_set_value(397,0);
-        		gpio_unexport(397);
-			}
-		}
-		if(strcmp(argv[1],"LED3")==0){
-			if(strcmp(argv[2],"ON")==0){
-				std::cout<<"LED3\n";
-				gpio_export(255);
-				gpio_set_dir(255,"out");
-				gpio_set_value(255,1);
-			}else if(strcmp(argv[2],"OFF")==0){
-				gpio_set_value(255,0);
-        		gpio_unexport(255);
-			}
-		}
-		if(strcmp(argv[1],"LED4")==0){
-			if(strcmp(argv[2],"ON")==0){
-				std::cout<<"LED4\n";
-				gpio_export(429);
-				gpio_set_dir(429,"out");
-				gpio_set_value(429,1);
-			}else if(strcmp(argv[2],"OFF")==0){
-				gpio_set_value(429,0);
-        		gpio_unexport(429);
-			}
-		}
-	//}
-    std::cout<<"1:"<<argv[1]<<",2:"<<argv[2]<<"\n";
-	/*
-	if(strcmp(argv[1],'1'){
-		std::cout<<"LED1\n";
-		gpio_export(466);
-		gpio_set_dir(466,"out");
-		gpio_set_value(466,1);
-	
-		if(argv[2]=="OFF"){
-			gpio_set_value(466,0);
-        	gpio_unexport(466);
-		}
-	}
-	if(argv[1]=='2'){
-		std::cout<<"LED2\n";
-		gpio_export(397);
-		gpio_set_dir(397,"out");
-		gpio_set_value(397,1);
-		if(argv[2]=="OFF"){
-			gpio_set_value(397,0);
-        	gpio_unexport(397);
-		}
-	}
-	if(argv[1]=='3'){
-		std::cout<<"LED3\n";
-		gpio_export(255);
-		gpio_set_dir(255,"out");
-		gpio_set_value(255,1);
-		if(argv[2]=="OFF"){
-			gpio_set_value(255,0);
-        	gpio_unexport(255);
-		}
-	}
-	if(argv[1]=='4'){
-		std::cout<<"LED4\n";
-		gpio_export(429);
-		gpio_set_dir(429,"out");
-		gpio_set_value(429,1);
-		if(argv[2]=="OFF"){
-			gpio_set_value(429,0);
-        	gpio_unexport(429);
-		}
-	}*/
+    if(strcmp(argv[1],"LED1")==0){
+        if(strcmp(argv[2],"ON")==0){
+            std::cout<<"LED1\n";
+            gpio_export(466);
+            gpio_set_dir(466,"out");
+            gpio_set_value(466,1);
+        }else if(strcmp(argv[2],"OFF")==0){
+            gpio_set_value(466,0);
+            gpio_unexport(466);
+        }
+    }
+    if(strcmp(argv[1],"LED2")==0){
+        if(strcmp(argv[2],"ON")==0){
+            std::cout<<"LED2\n";
+            gpio_export(397);
+            gpio_set_dir(397,"out");
+            gpio_set_value(397,1);
+        }else if(strcmp(argv[2],"OFF")==0){
+            gpio_set_value(397,0);
+            gpio_unexport(397);
+        }
+    }
+    if(strcmp(argv[1],"LED3")==0){
+        if(strcmp(argv[2],"ON")==0){
+            std::cout<<"LED3\n";
+            gpio_export(255);
+            gpio_set_dir(255,"out");
+            gpio_set_value(255,1);
+        }else if(strcmp(argv[2],"OFF")==0){
+            gpio_set_value(255,0);
+            gpio_unexport(255);
+        }
+    }
+    if(strcmp(argv[1],"LED4")==0){
+        if(strcmp(argv[2],"ON")==0){
+            std::cout<<"LED4\n";
+            gpio_export(429);
+            gpio_set_dir(429,"out");
+            gpio_set_value(429,1);
+        }else if(strcmp(argv[2],"OFF")==0){
+            gpio_set_value(429,0);
+            gpio_unexport(429);
+        }
+    }
+    if(strcmp(argv[1],"Mode_Shine")==0 && strcmp(argv[2],"5")==0){
+        for(int i=0;i<5;i++){
+            gpio_set_value(255,0);
+            gpio_unexport(255);
+            gpio_set_value(429,0);
+            gpio_unexport(429);
+            std::cout<<"LED1\n";
+            gpio_export(466);
+            gpio_set_dir(466,"out");
+            gpio_set_value(466,1);
+            std::cout<<"LED2\n";
+            gpio_export(397);
+            gpio_set_dir(397,"out");
+            gpio_set_value(397,1);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            gpio_set_value(466,0);
+            gpio_unexport(466);
+            gpio_set_value(397,0);
+            gpio_unexport(397);
+            std::cout<<"LED3\n";
+            gpio_export(255);
+            gpio_set_dir(255,"out");
+            gpio_set_value(255,1);
+            std::cout<<"LED4\n";
+            gpio_export(429);
+            gpio_set_dir(429,"out");
+            gpio_set_value(429,1);
+        }
+    }
     return 0;
 }
