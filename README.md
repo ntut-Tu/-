@@ -15,3 +15,21 @@ argv[1]=參數1
   strcmp(str1,str2)
 
 或像C的逐字比較
+
+# 延遲迴圈用法
+
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+int main() {
+    for (int i = 0; i < 4; ++i) {
+        // 执行指令
+        std::cout << "Instruction " << i + 1 << std::endl;
+
+        // 延迟500毫秒
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+
+    return 0;
+}
