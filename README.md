@@ -33,3 +33,10 @@
 
     return 0;
     }
+
+![image](https://github.com/ntut-Tu/Embedded-Microprocessor-Systems-Lab.-Spring-2024./assets/160988691/4ffaa5b7-09d3-430c-89b9-202082a3a6ce)
+
+![image](https://github.com/ntut-Tu/Embedded-Microprocessor-Systems-Lab.-Spring-2024./assets/160988691/07e87eed-d0a5-468e-8aa4-9f643b8012fb)
+
+
+![image](https://github.com/ntut-Tu/Embedded-Microprocessor-Systems-Lab.-Spring-2024./assets/160988691/098dfdcc-e367-43f8-b766-08bfe6f90247)
