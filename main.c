@@ -146,8 +146,9 @@ int main(int argc,char *argv[]){
             gpio_unexport(429);
         }
     }
-    if(strcmp(argv[1],"Mode_Shine")==0 && strcmp(argv[2],"5")==0){
-        for(int i=0;i<5;i++){
+    if(strcmp(argv[1],"Mode_Shine")==0){
+        int max = std::stoi(argv[2]);
+        for(int i=0;i<max;i++){
             gpio_set_value(255,0);
             gpio_unexport(255);
             gpio_set_value(429,0);
@@ -160,7 +161,7 @@ int main(int argc,char *argv[]){
             gpio_export(397);
             gpio_set_dir(397,"out");
             gpio_set_value(397,1);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
             gpio_set_value(466,0);
             gpio_unexport(466);
             gpio_set_value(397,0);
@@ -173,6 +174,7 @@ int main(int argc,char *argv[]){
             gpio_export(429);
             gpio_set_dir(429,"out");
             gpio_set_value(429,1);
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
     return 0;
