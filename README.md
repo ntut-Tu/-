@@ -1,6 +1,7 @@
 # lab 2
 
 # argv[]用法
+
   int main(int argv,char* argv[])
 
   ./檔名 參數1 參數2
