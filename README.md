@@ -26,9 +26,11 @@
 
 # Makefile簡介
 ## 編譯器與函式庫
-	CXX=g++
+	CROSS_COMPILE = aarch64-linux-gnu-
+	CXX=$(CROSS_COMPILE)g++
 	CXXFLAGS=-std=c++11
 	LDFLAGS=-lstdc++
+	LD=$(CROSS_COMPILE)ld
 
 ## 輸出的檔案:
 	TARGETS=main
