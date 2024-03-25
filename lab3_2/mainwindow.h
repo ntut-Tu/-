@@ -16,6 +16,9 @@
 #include <chrono>
 using namespace std;
 
+#define P_LED_ON "/home/nvidia/lab3/asset/led.png"
+#define P_LED_OFF "/home/nvidia/lab3/asset/unlight.png"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,7 +31,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-
+    void Start(){
+        gpio_set_dir(466,"out");
+        gpio_set_dir(397,"out");
+        gpio_set_dir(255,"out");
+        gpio_set_dir(481,"out");
+    }
 
 private slots:
     void update();

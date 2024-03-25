@@ -26,6 +26,10 @@ MainWindow::~MainWindow()
     qDebug("delete!\n");
     delete ui;
     delete timer;
+    gpio_unexport(255);
+    gpio_unexport(481);
+    gpio_unexport(466);
+    gpio_unexport(397);
 }
 
 void MainWindow::update(){
@@ -115,8 +119,8 @@ void MainWindow::on_checkLED4_toggled(bool checked)
 }
 
 void MainWindow::pixmapDebug(){
-    QPixmap pixmapOn("/home/nvidia/lab3/asset/led.png");
-    QPixmap pixmapOff("/home/nvidia/lab3/asset/unlight.png");
+    QPixmap pixmapOn(P_LED_ON);
+    QPixmap pixmapOff(P_LED_OFF);
     if (pixmapOn.isNull()) {
         ui->textDebug->setText("(debug)Read error");
     } else {
@@ -131,93 +135,113 @@ void MainWindow::pixmapDebug(){
 }
 
 void MainWindow::Led1(bool sw,int mode){
-    QPixmap pixmapOn("/home/nvidia/lab3/asset/led.png");
-    QPixmap pixmapOff("/home/nvidia/lab3/asset/unlight.png");
+    QPixmap pixmapOn(P_LED_ON);
+    QPixmap pixmapOff(P_LED_OFF);
     //pixmapDebug();
     if(mode==1){
         if(sw){
             if(b_led1){
                 ui->picLED1->setPixmap(pixmapOn);
+                gpio_set_value(466,1);
             }else{
                 ui->picLED1->setPixmap(pixmapOff);
+                gpio_set_value(466,0);
             }
         }else{
             ui->picLED1->setPixmap(pixmapOff);
+            gpio_set_value(466,0);
         }
     }else{
         if(sw){
             ui->picLED1->setPixmap(pixmapOn);
+            gpio_set_value(466,1);
         }else{
             ui->picLED1->setPixmap(pixmapOff);
+            gpio_set_value(466,0);
         }
     }
     ui->picLED1->setScaledContents(true);
     ui->picLED1->setFixedSize(41,41);
 }
 void MainWindow::Led2(bool sw,int mode){
-    QPixmap pixmapOn("/home/nvidia/lab3/asset/led.png");
-    QPixmap pixmapOff("/home/nvidia/lab3/asset/unlight.png");
+    QPixmap pixmapOn(P_LED_ON);
+    QPixmap pixmapOff(P_LED_OFF);
     if(mode==1){
         if(sw){
             if(b_led2){
                 ui->picLED2->setPixmap(pixmapOn);
+                gpio_set_value(397,1);
             }else{
                 ui->picLED2->setPixmap(pixmapOff);
+                gpio_set_value(397,0);
             }
         }else{
             ui->picLED2->setPixmap(pixmapOff);
+            gpio_set_value(397,0);
         }
     }else{
         if(sw){
             ui->picLED2->setPixmap(pixmapOn);
+            gpio_set_value(397,1);
         }else{
             ui->picLED2->setPixmap(pixmapOff);
+            gpio_set_value(397,0);
         }
     }
     ui->picLED2->setScaledContents(true);
     ui->picLED2->setFixedSize(41,41);
 }
 void MainWindow::Led3(bool sw,int mode){
-    QPixmap pixmapOn("/home/nvidia/lab3/asset/led.png");
-    QPixmap pixmapOff("/home/nvidia/lab3/asset/unlight.png");
+    QPixmap pixmapOn(P_LED_ON);
+    QPixmap pixmapOff(P_LED_OFF);
     if(mode==1){
         if(sw){
             if(b_led3){
                 ui->picLED3->setPixmap(pixmapOn);
+                gpio_set_value(255,1);
             }else{
                 ui->picLED3->setPixmap(pixmapOff);
+                gpio_set_value(255,0);
             }
         }else{
             ui->picLED3->setPixmap(pixmapOff);
+            gpio_set_value(255,0);
         }
     }else{
         if(sw){
             ui->picLED3->setPixmap(pixmapOn);
+            gpio_set_value(255,1);
         }else{
             ui->picLED3->setPixmap(pixmapOff);
+            gpio_set_value(255,0);
         }
     }
     ui->picLED3->setScaledContents(true);
     ui->picLED3->setFixedSize(41,41);
 }
 void MainWindow::Led4(bool sw,int mode){
-    QPixmap pixmapOn("/home/nvidia/lab3/asset/led.png");
-    QPixmap pixmapOff("/home/nvidia/lab3/asset/unlight.png");
+    QPixmap pixmapOn(P_LED_ON);
+    QPixmap pixmapOff(P_LED_OFF);
     if(mode==1){
         if(sw){
             if(b_led4){
                 ui->picLED4->setPixmap(pixmapOn);
+                gpio_set_value(481,1);
             }else{
                 ui->picLED4->setPixmap(pixmapOff);
+                gpio_set_value(481,0);
             }
         }else{
             ui->picLED4->setPixmap(pixmapOff);
+            gpio_set_value(481,0);
         }
     }else{
         if(sw){
             ui->picLED4->setPixmap(pixmapOn);
+            gpio_set_value(481,1);
         }else{
             ui->picLED4->setPixmap(pixmapOff);
+            gpio_set_value(481,0);
         }
     }
     ui->picLED4->setScaledContents(true);
