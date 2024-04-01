@@ -11,7 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
         ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    gpio_export(466);
+    gpio_export(397);
+    gpio_export(255);
+    gpio_export(481);
+    gpio_set_dir(466,"out");
+    gpio_set_dir(397,"out");
+    gpio_set_dir(255,"out");
+    gpio_set_dir(481,"out");
     timer=new QTimer(this);
     bool debugCheck=connect(timer,SIGNAL(timeout()),this,SLOT(update()));
     if(!debugCheck){
@@ -23,13 +30,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    qDebug("delete!\n");
     delete ui;
     delete timer;
     gpio_unexport(255);
     gpio_unexport(481);
     gpio_unexport(466);
     gpio_unexport(397);
+    qDebug("delete!\n");
 }
 
 void MainWindow::update(){
@@ -69,13 +76,13 @@ void MainWindow::Switch(bool sw){
         Led3(false,2);
         Led4(false,2);
         b_InProcess=false;
+        b_switchBool=false;
         ui->textDebug->setText("(debug)EndSwitch");
         timer->stop();
         return;
     }
     ui->textDebug->setText("(debug)InSwitch");
     count--;
-    b_switchBool=false;
 }
 
 void MainWindow::on_shiningLED_clicked()
@@ -268,7 +275,7 @@ int MainWindow::gpio_unexport(unsigned int gpio)
 
     len = snprintf(buf, sizeof(buf), "%d", gpio); // gpiobuf
     write(fd, buf, len);						// export (gpio)
-    close();									//
+//    std::fstream::close();									//
     return 0;
 }
 
@@ -286,7 +293,7 @@ int MainWindow::gpio_export(unsigned int gpio) // Xgpio
     }
     len = snprintf(buf, sizeof(buf), "%d", gpio); // gpiobuf
     write(fd, buf, len);						  // export (gpio)
-    close();
+//    std::fstream::close(fd);
 
     return 0;
 }
@@ -310,7 +317,7 @@ int MainWindow::gpio_set_dir(unsigned int gpio, std::string dirStatus) // gpioou
         write(fd, "out", 4);
     else
         write(fd, "in", 3);
-    close();
+//    std::fstream::close(fd);
 
     return 0;
 }
@@ -335,7 +342,7 @@ int MainWindow::gpio_set_value(unsigned int gpio, int value)
     else
         write(fd, "1", 2);
 
-    close();
+//    std::fstream::close(fd);
     return 0;
 }
 
@@ -359,6 +366,7 @@ void MainWindow::on_pushButton_clicked()
         qDebug("isActive!\n");
     }else{
         b_randomBool = false;
+        timer->stop();
     }
 }
 void MainWindow::RandomMode(bool sw){

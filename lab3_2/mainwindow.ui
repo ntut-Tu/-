@@ -83,6 +83,9 @@
     <property name="text">
      <string>LED Shining</string>
     </property>
+    <property name="shortcut">
+     <string>F</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="switchLED">
     <property name="geometry">
@@ -95,6 +98,9 @@
     </property>
     <property name="text">
      <string>LED Switch</string>
+    </property>
+    <property name="shortcut">
+     <string>H</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkLED1">

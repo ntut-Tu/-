@@ -16,8 +16,8 @@
 #include <chrono>
 using namespace std;
 
-#define P_LED_ON "/home/nvidia/lab3/asset/led.png"
-#define P_LED_OFF "/home/nvidia/lab3/asset/unlight.png"
+#define P_LED_ON "/home/nvidia/lab3_2/asset/led.png"
+#define P_LED_OFF "/home/nvidia/lab3_2/asset/unlight.png"
 
 namespace Ui {
 class MainWindow;
