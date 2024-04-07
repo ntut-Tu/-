@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Control</title>
+    <style>
+        .container {
+            text-align: left;
+        }
+        .checkbox-round {
+			width: 1.3em;
+			height: 1.3em;
+			background-color: white;
+			border-radius: 50%;
+			vertical-align: middle;
+			border: 1px solid #ddd;
+			appearance: none;
+			-webkit-appearance: none;
+			outline: none;
+			cursor: pointer;
+		}
+		.checkbox-round:checked {
+			background-color: gray;
+		}
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>LED Ctrl</h2>
+        <div>
+			<form>
+				<label for="LEDcheckbox1">
+					<input type="checkbox" id="LED1" name="LED1"> LED 1
+				</label>
+				<label for="LEDcheckbox2">
+					<input type="checkbox" id="LED2" name="LED2"> LED 2
+				</label>
+			</form>
+		</div>
+		<div>
+			<form>
+				<label for="LEDcheckbox3">
+					<input type="checkbox" id="LED3" name="LED3"> LED 3
+				</label>
+				<label for="LEDcheckbox4">
+					<input type="checkbox" id="LED4" na	me="LED4"> LED 4
+				</label>
+			</form>
+		</div>
+		<div>
+			<input type="checkbox" id="ON" class="checkbox-round">
+			<label for="ON">ON</label>
+			<input type="checkbox" id="OFF" class="checkbox-round">
+			<label for="OFF">OFF</label>
+			<button onclick="sendCtrlMode()">Submit</button>
+		</div>
+    </div>
+	<script>
+        // 获取ON和OFF checkbox元素
+        const onCheckbox = document.getElementById('ON');
+        const offCheckbox = document.getElementById('OFF');
+
+        // 当ON checkbox被点击时
+        onCheckbox.addEventListener('click', function () {
+            // 如果ON checkbox被选中，取消OFF checkbox的选中状态
+            if (onCheckbox.checked) {
+                offCheckbox.checked = false;
+            }
+        });
+
+        // 当OFF checkbox被点击时
+        offCheckbox.addEventListener('click', function () {
+            // 如果OFF checkbox被选中，取消ON checkbox的选中状态
+            if (offCheckbox.checked) {
+                onCheckbox.checked = false;
+            }
+        });
+    </script>
+	<div class="container">
+	<h1>LED Switch Frequency</h1>
+    <input type="text" id="Shine_Times" name="Shine_Times">
+	<br>
+	<button onclick="sendShineMode()">Shine_Mode</button>
+	<br>
+	<p id="response"></p>
+	</div>
+	<script> //Button Events
+		
+		function sendCtrlMode() {
+			// 创建一个 XMLHttpRequest 对象
+			var xhr = new XMLHttpRequest();
+			const onCheckbox = document.getElementById('ON');
+			const offCheckbox = document.getElementById('OFF');
+
+			// 配置请求
+			if (onCheckbox.checked) {
+				baseUrl = "http://localhost:3000/ToCtrlMode/ON/";
+			} else if (offCheckbox.checked) {
+				baseUrl = "http://localhost:3000/ToCtrlMode/OFF/";
+			}
+			var ledSelection = '';
+
+			// 检查每个 LED 复选框是否被选中，如果选中则添加到 LED 选择字符串中
+			if (document.getElementById('LED1').checked) {
+				ledSelection += "LED1/";
+			}
+			if (document.getElementById('LED2').checked) {
+				ledSelection += "LED2/";
+			}
+			if (document.getElementById('LED3').checked) {
+				ledSelection += "LED3/";
+			}
+			if (document.getElementById('LED4').checked) {
+				ledSelection += "LED4/";
+			}
+
+			// 构建完整的请求 URL
+			var requestUrl = baseUrl + ledSelection;
+
+			// 如果至少选中了一个 LED，则发送请求
+			if (ledSelection !== '') {
+				xhr.open("GET", requestUrl, true);
+				
+				// 当请求完成时的处理函数
+				xhr.onload = function () {
+					if (xhr.status == 200) {
+						// 如果请求成功，将服务器返回的信息显示在网页上
+						document.getElementById("response").innerHTML = xhr.responseText;
+					}
+				};
+				// 发送请求
+				xhr.send();
+			}
+}
+		function sendShineMode() {
+			// 建立一个 XMLHttpRequest 物件
+			var xhr = new XMLHttpRequest();
+
+			// 配置请求
+			//xhr.open("GET", "http://localhost:3000/ToShineMode", true);
+
+
+			// 如果 ShineMode 被点击并且 text 不为空，则在 "/ToShineMode" 后面加上 "/text"
+			var textValue = document.getElementById("Shine_Times").value;
+			if (textValue.trim() !== '') {
+				xhr.open("GET", "http://localhost:3000/ToShineMode/" + textValue, true);
+			}
+			// 当请求完成时的处理函数
+			xhr.onload = function () {
+				if (xhr.status == 400) {
+					// 如果请求成功，将服务器返回的信息显示在网页上
+					document.getElementById("response").innerHTML = xhr.responseText;
+				}
+			};
+			// 发送请求
+			xhr.send();
+		}
+	</script>
+</body>
+</html>
+
