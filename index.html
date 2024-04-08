@@ -97,9 +97,9 @@
 
 			// 配置请求
 			if (onCheckbox.checked) {
-				baseUrl = "http://localhost:3000/ToCtrlMode/ON/";
+				baseUrl = "/ToCtrlMode/ON/";
 			} else if (offCheckbox.checked) {
-				baseUrl = "http://localhost:3000/ToCtrlMode/OFF/";
+				baseUrl = "/ToCtrlMode/OFF/";
 			}
 			var ledSelection = '';
 
@@ -146,7 +146,7 @@
 			// 如果 ShineMode 被点击并且 text 不为空，则在 "/ToShineMode" 后面加上 "/text"
 			var textValue = document.getElementById("Shine_Times").value;
 			if (textValue.trim() !== '') {
-				xhr.open("GET", "http://localhost:3000/ToShineMode/" + textValue, true);
+				xhr.open("GET", "/ToShineMode/" + textValue, true);
 			}
 			// 当请求完成时的处理函数
 			xhr.onload = function () {
