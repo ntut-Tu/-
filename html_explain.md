@@ -138,3 +138,86 @@ xhr.send();
 這裡使用 XMLHttpRequest 物件的 open 方法配置請求，然後使用 send 方法發送請求到伺服器。
 
 這些是 JavaScript 部分的一些關鍵概念和代碼片段，它們用於實現與用戶交互和伺服器通信的功能。
+
+好的，讓我更詳細地解釋這兩個 JavaScript 函式的功能：
+
+#### sendCtrlMode 函式：
+```javascript
+function sendCtrlMode() {
+    // 创建一个 XMLHttpRequest 对象
+    var xhr = new XMLHttpRequest();
+    const onCheckbox = document.getElementById('ON');
+    const offCheckbox = document.getElementById('OFF');
+
+    // 配置请求
+    if (onCheckbox.checked) {
+        baseUrl = "/ToCtrlMode/ON/";
+    } else if (offCheckbox.checked) {
+        baseUrl = "/ToCtrlMode/OFF/";
+    }
+    var ledSelection = '';
+
+    // 检查每个 LED 复选框是否被选中，如果选中则添加到 LED 选择字符串中
+    if (document.getElementById('LED1').checked) {
+        ledSelection += "LED1/";
+    }
+    if (document.getElementById('LED2').checked) {
+        ledSelection += "LED2/";
+    }
+    if (document.getElementById('LED3').checked) {
+        ledSelection += "LED3/";
+    }
+    if (document.getElementById('LED4').checked) {
+        ledSelection += "LED4/";
+    }
+
+    // 构建完整的请求 URL
+    var requestUrl = baseUrl + ledSelection;
+
+    // 如果至少选中了一个 LED，则发送请求
+    if (ledSelection !== '') {
+        xhr.open("GET", requestUrl, true);
+        
+        // 当请求完成时的处理函数
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                // 如果请求成功，将服务器返回的信息显示在网页上
+                document.getElementById("response").innerHTML = xhr.responseText;
+            }
+        };
+        // 发送请求
+        xhr.send();
+    }
+}
+```
+這個函式的作用是根據用戶在網頁上的操作，構建並發送一個 HTTP 請求到伺服器。首先，它創建了一個 XMLHttpRequest 對象，然後根據用戶選擇的 LED 和模式構建請求的 URL。最後，它發送這個請求到伺服器，並在請求完成後將伺服器返回的響應顯示在網頁上。
+
+#### sendShineMode 函式：
+```javascript
+function sendShineMode() {
+    // 建立一个 XMLHttpRequest 物件
+    var xhr = new XMLHttpRequest();
+
+    // 配置请求
+    //xhr.open("GET", "http://localhost:3000/ToShineMode", true);
+
+
+    // 如果 ShineMode 被点击并且 text 不为空，则在 "/ToShineMode" 后面加上 "/text"
+    var textValue = document.getElementById("Shine_Times").value;
+    if (textValue.trim() !== '') {
+        xhr.open("GET", "/ToShineMode/" + textValue, true);
+    }
+    // 当请求完成时的处理函数
+    xhr.onload = function () {
+        if (xhr.status == 400) {
+            // 如果请求成功，将服务器返回的信息显示在网页上
+            document.getElementById("response").innerHTML = xhr.responseText;
+        }
+    };
+    // 发送请求
+    xhr.send();
+}
+```
+這個函式的作用是根據用戶在網頁上的操作，構建並發送一個 HTTP 請求到伺服器。它首先創建了一個 XMLHttpRequest 對象，然後構建請求的 URL，根據用戶輸入的 Shine 次數。最後，它發送這個請求到伺服器，並在請求完成後將伺服器返回的響應顯示在網頁上。
+
+這兩個函式都用於與伺服器進行通信，並根據用戶的操作動態生成請求的內容。
