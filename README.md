@@ -6,6 +6,11 @@
 
 https://dylan237.github.io/linux-basic.html
 
+ * 創資料夾
+
+    mkdir
+
+
 ## makefile 介紹
 
 https://hackmd.io/@sysprog/SySTMXPvl
