@@ -1,3 +1,9 @@
+## 連線到tx2
+
+    ssh -Y userName@<IP>
+
+-Y:使在遠端執行的程序能在本地顯示
+
 
 ## Ubuntu filezilla
 	sudo apt-get install filezilla
