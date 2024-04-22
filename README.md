@@ -16,6 +16,8 @@
 
     scp -r(複製包含原路徑) 本地目錄 userName@IP : ~複製到的目錄(~為根)
 
+scp : secret copy
+
 若":"在目錄後面ex"desktop:"代表從遠端複製回本地
   
 * after copy to tx2 
