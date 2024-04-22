@@ -22,15 +22,76 @@ https://dylan237.github.io/linux-basic.html
 
  * 顯示目錄
    
-    ls (-a)(-l)(-r) (DIR)
+    ls (-a)(-l)(-R) (DIR)
 
 -a 顯示隱藏檔案
 
 -l 詳細資料 （權限、日期）
 
--r 顯示包含子資料夾
+-R 顯示包含子資料夾
 
 DIR 沒有，默認當前目錄
+
+    pwd
+
+顯示當前路徑
+
+ * 本地複製
+  
+    cp (-rpfis) Target
+
+-r 整個資料夾包含內容複製
+
+-p 連同檔案本身屬性、權限複製
+
+-f 強制覆蓋
+
+-i 會詢問是否覆蓋
+
+-s 複製成捷徑
+
+ * 移動或重新命名
+
+    mv (-bvf) Target1 Target2 (move)
+
+    mv (-bvf) ./Target1 ./Target2 (rename)
+
+-b 備份後再移動
+
+-v 移動後顯示做了什麼
+
+-f 強制移動
+
+ * 尋找
+
+    find (從哪搜尋) (-name)|(-iname) <Target in string form>
+
+-name 名字一定要相同
+
+-iname 大小寫皆可
+
+還可以透過特定檔案屬性搜尋，詳見網站
+
+ * 列印檔案內容
+
+    cat (-nbsE) Target1 (>|>>) Target2
+
+-n 對輸出的每row編號
+
+-b 同n但空白行不編號
+
+-s 連續空行合併
+
+-E 每row結尾+$
+
+> 修改
+
+>> 追加修改
+
+ * 印出一行
+
+    echo 
+
 
 
 
