@@ -14,7 +14,7 @@
 
     scp -r <dir>nvidia@<IP>:~
 
-    scp -r(複製路徑) 複製的目錄 userName@IP : ~複製到的目錄(~為根)
+    scp -r(複製包含原路徑) 本地目錄 userName@IP : ~複製到的目錄(~為根)
 
 若":"在目錄後面ex"desktop:"代表從遠端複製回本地
   
