@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>LED Control</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+        .container {
+            text-align: left;
+        }
+        .checkbox-round {
+			width: 1.3em;
+			height: 1.3em;
+			background-color: white;
+			border-radius: 50%;
+			vertical-align: middle;
+			border: 1px solid #ddd;
+			appearance: none;
+			-webkit-appearance: none;
+			outline: none;
+			cursor: pointer;
+		}
+		.checkbox-round:checked {
+			background-color: gray;
+		}
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+	<div class="container">
+        <h1>Light Detection</h1>
+		<div>
+			<input type="checkbox" id="Detection" class="checkbox-round">
+			<label for="Detection">Detection</label>
+			<input type="checkbox" id="No Detection" class="checkbox-round">
+			<label for="No Detection">No Detection</label>
+			<button onclick="setURL()">Submit</button>
+		</div>
+        <h2>LED Ctrl</h2>
+        <div>
+			<form>
+				<label for="LEDcheckbox1">
+					<input type="checkbox" id="LED1" name="LED1"> LED 1
+				</label>
+				<label for="LEDcheckbox2">
+					<input type="checkbox" id="LED2" name="LED2"> LED 2
+				</label>
+			</form>
+		</div>
+		<div>
+			<input type="checkbox" id="ON" class="checkbox-round">
+			<label for="ON">ON</label>
+			<input type="checkbox" id="OFF" class="checkbox-round">
+			<label for="OFF">OFF</label>
+			<button onclick="setLED()">Submit</button>
+		</div>
+    </div>
+	
+	<h1>偵測器狀態</h1>
+    <div id="timer"></div>
+
+    <script>
+		const onCheckbox = document.getElementById('Detection');
+        const offCheckbox = document.getElementById('No Detection');
+		
+		const onCheckbox2 = document.getElementById('ON');
+        const offCheckbox2 = document.getElementById('OFF');
+		
+		let b_LED1;
+		let b_LED2;
+		
+		let url;
+
+        onCheckbox.addEventListener('click', function () {
+            if (onCheckbox.checked) {
+                offCheckbox.checked = false;
+            }
+        });
+        offCheckbox.addEventListener('click', function () {
+            if (offCheckbox.checked) {
+                onCheckbox.checked = false;
+            }
+        });
+		
+		onCheckbox2.addEventListener('click', function () {
+            if (onCheckbox2.checked) {
+                offCheckbox2.checked = false;
+            }
+        });
+        offCheckbox2.addEventListener('click', function () {
+            if (offCheckbox2.checked) {
+                onCheckbox2.checked = false;
+            }
+        });
+		
+		function setURL(){
+			if (onCheckbox.checked) {
+				url = "/get_timer_value";
+				url += "?mode=numeric"; 
+			} else {
+				url = "/get_timer_value";
+				if(b_LED1){
+					if(b_LED2){
+						url += "?mode=BOTH";
+					}else{
+						url += "?mode=A";
+					}
+				}else if(b_LED2){
+					url += "?mode=B";
+				}else{
+					url += "?mode=N";
+				}
+			}
+		}
+		
+		function setLED(){
+			if(document.getElementById('ON').checked){
+				if(document.getElementById('LED1').checked){
+					b_LED1 = true;
+				}
+				if(document.getElementById('LED2').checked){
+					b_LED2 = true;
+				}
+			}else if(document.getElementById('OFF').checked){
+				if(document.getElementById('LED1').checked){
+					b_LED1 = false;
+				}
+				if(document.getElementById('LED2').checked){
+					b_LED2 = false;
+				}
+			}
+		}
+		
+		function fetchValue() {
+			$.ajax({
+				url: url,
+				success: function(data) {
+					$("#timer").text(data);
+				}
+			});
+		}
+        setInterval(fetchValue, 500);
+    </script>
+</body>
+</html>
