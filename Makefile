@@ -1,14 +1,7 @@
-obj-m := hellod.o
+obj-m += demo.o
 
-kernel_DIR := /usr/src/linux-headers-5.4.0-150-generic/
+all:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
-PWD := $(shell pwd)
-
-all: 
-	make -C $(kernel_DIR) M=$(PWD)
-
-clean: 
-	rm *.o *.ko *.mod.c
-
-.PHONY: 
-	clean
+clean:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
