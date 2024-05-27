@@ -2,11 +2,13 @@
 #include <linux/fs.h>
 #include <asm/uaccess.h>
 #include <linux/uaccess.h>
+#include <linux/device.h>
 
 #define DEVICE_NAME "demo"
 #define CLASS_NAME "demo_class"
 
 static int major_number;
+static char userChar[100];
 static struct class* demo_class = NULL;
 static struct device* demo_device = NULL;
 
@@ -27,6 +29,18 @@ static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *of
 
 static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset){
     printk(KERN_INFO "Enter Write function\n");
+    copy_from_user(userChar,buffer,len);
+    userChar[len-1]=0;
+    printk("userChar(char): %s\n",userChar);
+    printk("userChar(int): %d\n",(int)sizeof(userChar));
+    char gpio[10]={0};
+    strncpy(gpio,userChar, 3);
+    printk("gpio: %s, length: %d\n", gpio, strlen(gpio));
+    struct file *io;
+    loff_t pos = 0;
+    mm_segment_t old_fs;
+    old_fs = get_fs();
+    set_fs(get_ds());
     return len;
 }
 
