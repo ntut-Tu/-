@@ -1,0 +1,119 @@
+#include <linux/init.h>
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/fs.h>
+#include <linux/uaccess.h>
+#include <linux/gpio.h>
+#include <linux/slab.h>
+#include <linux/device.h>
+#include <asm/uaccess.h>
+#include <linux/errno.h>
+
+#define MAJOR_NUM 60
+#define DEVICE_NAME "demo"
+#define MODULE_NAME "demo"
+
+static int ledPortList[] = {466, 397, 255, 429};
+static char userChar[100];
+
+static int gpio_export(int gpio_num) {
+    if (gpio_request(gpio_num, "sysfs")) {
+        printk(KERN_ALERT "GPIO %d request failed\n", gpio_num);
+        return -1;
+    }
+    gpio_direction_output(gpio_num, 0);
+    gpio_export(gpio_num, false);
+    return 0;
+}
+
+static int gpio_unexport(int gpio_num) {
+    gpio_unexport(gpio_num);
+    gpio_free(gpio_num);
+    return 0;
+}
+
+static int dev_open(struct inode *inodep, struct file *filep) {
+    printk(KERN_INFO "Enter Open function\n");
+    for (int i = 0; i < 4; i++) {
+        if (gpio_export(ledPortList[i])) {
+            printk(KERN_ALERT "Failed to export GPIO %d\n", ledPortList[i]);
+            return -EBUSY;
+        }
+    }
+    return 0;
+}
+
+static int dev_release(struct inode *inodep, struct file *filep) {
+    printk(KERN_INFO "Enter Release function\n");
+    for (int i = 0; i < 4; i++) {
+        gpio_unexport(ledPortList[i]);
+    }
+    return 0;
+}
+
+static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset) {
+    printk(KERN_INFO "Enter Write function\n");
+    if (len > sizeof(userChar) - 1) {
+        return -EINVAL;
+    }
+
+    copy_from_user(userChar, buffer, len);
+    userChar[len] = '\0';
+    printk("userChar: %s\n", userChar);
+
+    int gpio_num, value;
+    sscanf(userChar, "%d %d", &gpio_num, &value);
+
+    char buf[40];
+    snprintf(buf, sizeof(buf), "/sys/class/gpio/gpio%d/value", gpio_num);
+
+    struct file *file;
+    loff_t pos = 0;
+    mm_segment_t old_fs = get_fs();
+    set_fs(KERNEL_DS);
+
+    file = filp_open(buf, O_WRONLY, 0);
+    if (IS_ERR(file)) {
+        printk(KERN_ALERT "Failed to open gpio file: %s\n", buf);
+        set_fs(old_fs);
+        return PTR_ERR(file);
+    }
+
+    if (value == 0) {
+        kernel_write(file, "0", 2, &pos);
+    } else {
+        kernel_write(file, "1", 2, &pos);
+    }
+
+    filp_close(file, NULL);
+    set_fs(old_fs);
+    return len;
+}
+
+static struct file_operations fops = {
+    .open = dev_open,
+    .release = dev_release,
+    .write = dev_write,
+};
+
+static int __init demo_init(void) {
+    printk(KERN_INFO "Initializing the demo LKM\n");
+    int result = register_chrdev(MAJOR_NUM, DEVICE_NAME, &fops);
+    if (result < 0) {
+        printk(KERN_ALERT "%s: can't get major %d\n", MODULE_NAME, MAJOR_NUM);
+        return result;
+    }
+    printk(KERN_INFO "%s: started\n", MODULE_NAME);
+    return 0;
+}
+
+static void __exit demo_exit(void) {
+    unregister_chrdev(MAJOR_NUM, DEVICE_NAME);
+    printk(KERN_INFO "%s: removed\n", MODULE_NAME);
+}
+
+module_init(demo_init);
+module_exit(demo_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Me :)");
