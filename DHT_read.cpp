@@ -1,21 +1,30 @@
-#include "DHT.h"
+#include <DHT.h>
 
-#define dhtPin 8      // 讀取DHT11 Data
-#define dhtType DHT11 // 選用DHT11
+#define DHTPIN 2
+#define DHTTYPE DHT11
 
-DHT dht(dhtPin, dhtType); // Initialize DHT sensor
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
-  Serial.begin(9600); // 設定鮑率9600
-  dht.begin(); // 啟動DHT
-
-  float h = dht.readHumidity(); // 讀取濕度
-  float t = dht.readTemperature(); // 讀取攝氏溫度
-  float f = dht.readTemperature(true); // 讀取華氏溫度
-
-  Serial.print(h);
+  Serial.begin(9600);
+  dht.begin();
 }
 
 void loop() {
-  // 空的loop函數，讓程式不會重複執行
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+//   if (isnan(h) || isnan(t)) {
+//     Serial.println("Failed to read from DHT sensor!");
+//     return;
+//   }
+
+  Serial.print("Humidity: ");
+//   Serial.print(h);
+//   Serial.print(" %\t");
+//   Serial.print("Temperature: ");
+//   Serial.print(t);
+//   Serial.println(" *C");
+
+  delay(2000);
 }
