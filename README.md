@@ -1,7 +1,8 @@
 假設當亮度最亮+濕度為0時晾6個小時乾
 
+
 啟動方式:
-  先編譯DHT_reader並執行DHT_reader
+  安裝arduino IDE 將其燒入裝置，接上tx2 找到串口位置，修改sensor.py成該位置
   
   安裝讀取ardiuno輸出的函式庫
   
