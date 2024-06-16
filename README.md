@@ -17,6 +17,7 @@
 
 
 流程圖:
-![未命名的 Jam 1 (1)](https://github.com/ntut-Tu/Embedded-Microprocessor-Systems-Lab.-Spring-2024./assets/160988691/56a80494-de80-40ce-ae28-5ed23e4c2bc3)
+![未命名的 Jam 1 (2)](https://github.com/ntut-Tu/Embedded-Microprocessor-Systems-Lab.-Spring-2024./assets/160988691/ebfa6ae0-6849-40a4-8455-3342b3f4e4d9)
+
 
 https://jamboard.google.com/d/1euOkODaBIiO_SuLjsI4UxyKxn_C_5BAM3Kl3ei3B0mI/viewer?pli=1&f=0
