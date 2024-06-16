@@ -59,7 +59,7 @@ def read_light_sensor():
     return readadc(photo_ch,SPICLK,SPIMOSI,SPIMISO,SPICS)
 
 def read_humidity_sensor():
-    ser = serial.Serial('COM3', 9600)
+    ser = serial.Serial('/dev/ttyUSB0', 9600) #serial.Serial(' Jetson TX2 上串口名稱', port number)
     if ser.is_open:
         try:
             while True:
