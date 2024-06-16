@@ -1,7 +1,10 @@
 啟動方式:
-  先編譯DHT_reader並執行
+  先編譯DHT_reader並執行DHT_reader
   
-    pip install pyserial
+  安裝讀取ardiuno輸出的函式庫
+  
+    sudo apt-get install python3-pip
+    sudo pip3 install pyserial
 
 完成後安裝驅動:
 
