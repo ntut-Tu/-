@@ -59,14 +59,14 @@ def read_light_sensor():
     return readadc(photo_ch,SPICLK,SPIMOSI,SPIMISO,SPICS)
 
 def read_humidity_sensor():
-    line = ""  # Initialize line with an empty string
+    line = "error"  # Initialize line with an empty string
     ser = serial.Serial('/dev/ttyUSB0', 9600)
     if ser.is_open:
         try:
             while True:
-                line = ser.readline()
-                print(line)
-                return line
+                data_raw = ser.readline()  # 讀取一行
+                data = data_raw.decode()   # 用預設的UTF-8解碼
+                return data
         except KeyboardInterrupt:
             print("中斷")
         finally:
